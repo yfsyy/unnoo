@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity android:name="com.wzhz.choseimagesfromsdcard.ShowImageActivity"></activity>
+        <activity android:name="com.wzhz.choseimagesfromsdcard.ShowSelectedImagesActivity"></activity>
     </application>
 
 </manifest>

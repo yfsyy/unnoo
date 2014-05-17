@@ -25,6 +25,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
 public class MainActivity extends Activity {
+	//以目录名为Key，该目录下图片的路径为值
 	private HashMap<String, List<String>> mGruopMap = new HashMap<String, List<String>>();
 	private List<ImageBean> list = new ArrayList<ImageBean>();
 	private final static int SCAN_OK = 1;
@@ -67,6 +68,7 @@ public class MainActivity extends Activity {
 				List<String> childList = mGruopMap.get(list.get(position).getFolderName());
 				
 				Intent mIntent = new Intent(MainActivity.this, ShowImageActivity.class);
+				mIntent.putExtra("dirName", list.get(position).getFolderName());
 				mIntent.putStringArrayListExtra("data", (ArrayList<String>)childList);
 				startActivity(mIntent);
 				

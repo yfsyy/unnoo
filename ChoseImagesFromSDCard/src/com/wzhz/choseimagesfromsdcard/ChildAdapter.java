@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Point;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,18 +26,19 @@ import com.wzhz.choseimagesfromsdcard.NativeImageLoader.NativeImageCallBack;
 
 
 public class ChildAdapter extends BaseAdapter {
-	//private Point mPoint = new Point(0, 0);//用来封装ImageView的宽和高的对象
 	/**
 	 * 用来存储图片的选中情况
 	 */
-	private HashMap<String, Boolean> mSelectMap = new HashMap<String, Boolean>();
+	public  HashMap<String, Boolean> mSelectMap = new HashMap<String, Boolean>();
 	private GridView mGridView;
-	private List<String> list;
+	private List<String> list;//保存选中目录下的图片地址
 	protected LayoutInflater mInflater;
-
-	public ChildAdapter(Context context, List<String> list, GridView mGridView) {
+	private int totalSelected;//选中的总数
+	private Handler handler;
+	public ChildAdapter(Context context, List<String> list, GridView mGridView,Handler handler) {
 		this.list = list;
 		this.mGridView = mGridView;
+		this.handler=handler;
 		mInflater = LayoutInflater.from(context);
 	}
 	
@@ -89,9 +90,28 @@ public class ChildAdapter extends BaseAdapter {
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				//如果是未选中的CheckBox,则添加动画
 				if(!mSelectMap.containsKey(path) || !mSelectMap.get(path)){
-					addAnimation(viewHolder.mCheckBox);
+					if(totalSelected<9){
+						addAnimation(viewHolder.mCheckBox);
+					}
 				}
-				mSelectMap.put(path, isChecked);
+				if(totalSelected<9){
+					if(isChecked){
+						totalSelected++;
+						mSelectMap.put(path, isChecked);
+					}else{
+						totalSelected--;
+						mSelectMap.remove(path);
+					}
+				}else{
+					if(isChecked){
+						viewHolder.mCheckBox.setChecked(!isChecked);
+						handler.sendEmptyMessage(-1);
+					}else{
+						viewHolder.mCheckBox.setChecked(isChecked);
+						totalSelected--;
+						mSelectMap.remove(path);
+					}
+				}
 			}
 		});
 		
