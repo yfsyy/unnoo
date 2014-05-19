@@ -2,7 +2,6 @@ package com.wzhz.choseimagesfromsdcard.app.adapter;
 
 import java.util.List;
 
-
 import com.wzhz.choseimagesfromsdcard.app.R;
 import com.wzhz.choseimagesfromsdcard.app.ShowSelectedImagesActivity;
 import com.wzhz.choseimagesfromsdcard.app.other.NativeImageLoader;
@@ -16,12 +15,13 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 public class SelectedAdapter extends BaseAdapter {
-    private List<String> lt;//选中图片的路径
+    private List<String> lt;// 选中图片的路径
     private LayoutInflater inflater;
     private GridView selectedGridView;
     private ShowSelectedImagesActivity context;
 
-    public SelectedAdapter(ShowSelectedImagesActivity context, List<String> lt, GridView selectedGridView) {
+    public SelectedAdapter(ShowSelectedImagesActivity context, List<String> lt,
+                           GridView selectedGridView) {
         this.context = context;
         this.lt = lt;
         this.selectedGridView = selectedGridView;
@@ -64,30 +64,36 @@ public class SelectedAdapter extends BaseAdapter {
         }
         holder.image.setTag(path);
         System.out.println("current position:" + position);
-        if (position == context.getIntent().getStringArrayListExtra("selectedpath").size()) {
+        if (position == context.getIntent()
+                .getStringArrayListExtra("selectedpath").size()) {
 
-            //选择的图片小于9张时，在后面有个添加图片
+            // 选择的图片小于9张时，在后面有个添加图片
             holder.image.setImageResource(R.drawable.icon_addpic_unfocused);
             if (position == 9) {
-                //选择为9张时，添加图片 消失
+                // 选择为9张时，添加图片 消失
                 holder.image.setVisibility(View.GONE);
             }
         } else {
-            Bitmap bitmap = NativeImageLoader.getInstance().loadNativeImage(path, holder.image.getWidth(), holder.image.getHeight(), new NativeImageLoader.NativeImageCallBack() {
+            Bitmap bitmap = NativeImageLoader.getInstance().loadNativeImage(
+                    path, holder.image.getWidth(), holder.image.getHeight(),
+                    new NativeImageLoader.NativeImageCallBack() {
 
-                @Override
-                public void onImageLoader(Bitmap bitmap, String path) {
-                    ImageView mImageView = (ImageView) selectedGridView.findViewWithTag(path);
-                    if (bitmap != null && mImageView != null) {
-                        mImageView.setImageBitmap(bitmap);
+                        @Override
+                        public void onImageLoader(Bitmap bitmap, String path) {
+                            ImageView mImageView = (ImageView) selectedGridView
+                                    .findViewWithTag(path);
+                            if (bitmap != null && mImageView != null) {
+                                mImageView.setImageBitmap(bitmap);
+                            }
+                        }
                     }
-                }
-            });
+            );
 
             if (bitmap != null) {
                 holder.image.setImageBitmap(bitmap);
             } else {
-                holder.image.setImageResource(R.drawable.friends_sends_pictures_no);
+                holder.image
+                        .setImageResource(R.drawable.friends_sends_pictures_no);
             }
 
         }

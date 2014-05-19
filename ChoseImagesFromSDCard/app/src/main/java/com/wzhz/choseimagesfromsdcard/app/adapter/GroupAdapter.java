@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,6 @@ import android.widget.TextView;
 import com.wzhz.choseimagesfromsdcard.app.R;
 import com.wzhz.choseimagesfromsdcard.app.other.ImageBean;
 import com.wzhz.choseimagesfromsdcard.app.other.NativeImageLoader;
-
 
 public class GroupAdapter extends BaseAdapter {
     private List<ImageBean> list;
@@ -56,7 +56,6 @@ public class GroupAdapter extends BaseAdapter {
             viewHolder.mImageView = (ImageView) convertView.findViewById(R.id.group_image);
             viewHolder.mTextViewTitle = (TextView) convertView.findViewById(R.id.group_title);
             viewHolder.mTextViewCounts = (TextView) convertView.findViewById(R.id.group_count);
-
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();

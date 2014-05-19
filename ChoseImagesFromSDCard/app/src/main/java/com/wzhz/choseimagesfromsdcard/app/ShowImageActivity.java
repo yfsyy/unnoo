@@ -44,6 +44,7 @@ public class ShowImageActivity extends Activity {
         findViews();
         adapter = new ChildAdapter(this, list, mGridView, handler);
         mGridView.setAdapter(adapter);
+
         complete.setOnClickListener(new View.OnClickListener() {
 
             @Override

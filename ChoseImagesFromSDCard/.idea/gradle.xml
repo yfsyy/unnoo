@@ -7,8 +7,8 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="D:\Workspace\AndroidStudioProjects\ChoseImagesFromSDCard" />
-            <option value="D:\Workspace\AndroidStudioProjects\ChoseImagesFromSDCard\app" />
+            <option value="D:\unnoo\ChoseImagesFromSDCard" />
+            <option value="D:\unnoo\ChoseImagesFromSDCard\app" />
           </set>
         </option>
       </GradleProjectSettings>

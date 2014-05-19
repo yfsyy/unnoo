@@ -36,8 +36,6 @@ public class MainActivity extends Activity {
     private GroupAdapter adapter;
     private GridView mGroupGridView;
 
-
-    // asdlkf
     private Handler mHandler = new Handler() {
 
         @Override
