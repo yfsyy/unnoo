@@ -103,7 +103,7 @@ public class NativeImageLoader {
                     Message msg = mHander.obtainMessage();
                     msg.obj = mBitmap;
                     mHander.sendMessage(msg);
-				
+
                     //将图片加入到内存缓存
                     addBitmapToMemoryCache(path, mBitmap);
                 }
