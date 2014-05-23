@@ -22,7 +22,7 @@ import android.support.v4.util.LruCache;
  */
 public class NativeImageLoader {
     private LruCache<String, Bitmap> mMemoryCache;
-    private static NativeImageLoader mInstance = new NativeImageLoader();
+    private static NativeImageLoader mInstance = null;
     private ExecutorService mImageThreadPool = Executors.newFixedThreadPool(1);
 
     /**
@@ -32,6 +32,7 @@ public class NativeImageLoader {
 
 
     private NativeImageLoader() {
+
         // 获取到可用内存的最大值，使用内存超出这个值会引起OutOfMemory异常。
         final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
 
@@ -54,6 +55,9 @@ public class NativeImageLoader {
      * @return
      */
     public static NativeImageLoader getInstance() {
+        if (mInstance == null) {
+            mInstance = new NativeImageLoader();
+        }
         return mInstance;
     }
 
@@ -160,7 +164,7 @@ public class NativeImageLoader {
             // 高度和宽度都做了限制，这时候我们计算在这个限制内能容纳的最大的图片尺寸，不会使图片变形
             double _widthRatio = Math.ceil(options.outWidth / viewWidth);
             double _heightRatio = (double) Math.ceil(options.outHeight / viewHeight);
-            ratio = _widthRatio > _heightRatio ? _widthRatio : _heightRatio;
+            ratio = _widthRatio < _heightRatio ? _widthRatio : _heightRatio;
         }
         if (ratio > 1) {
             options.inSampleSize = (int) ratio;
@@ -179,8 +183,8 @@ public class NativeImageLoader {
      * 根据View(主要是ImageView)的宽和高来计算Bitmap缩放比例。默认不缩放
      *
      * @param options
-     * @param width
-     * @param height
+     * @param
+     * @param
      */
     private int computeScale(BitmapFactory.Options options, int viewWidth, int viewHeight) {
         int inSampleSize = 1;
@@ -191,6 +195,7 @@ public class NativeImageLoader {
         int bitmapHeight = options.outHeight;
 
         //假如Bitmap的宽度或高度大于我们设定图片的View的宽高，则计算缩放比例
+
         if (bitmapWidth > viewWidth || bitmapHeight > viewWidth) {
             int widthScale = Math.round((float) bitmapWidth / (float) viewWidth);
             int heightScale = Math.round((float) bitmapHeight / (float) viewWidth);

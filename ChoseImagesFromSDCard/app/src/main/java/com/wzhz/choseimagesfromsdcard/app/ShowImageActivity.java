@@ -56,6 +56,7 @@ public class ShowImageActivity extends Activity {
                 ShowImageActivity.this.startActivity(it);
             }
         });
+        ExitApplication.getInstance().addActivity(this);
     }
 
     private void findViews() {

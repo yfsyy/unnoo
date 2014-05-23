@@ -8,7 +8,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
 
-        <ImageView
+        <com.wzhz.choseimagesfromsdcard.app.other.MyImageView
             android:id="@+id/group_image"
             android:background="@drawable/albums_bg"
             android:src="@drawable/friends_sends_pictures_no"

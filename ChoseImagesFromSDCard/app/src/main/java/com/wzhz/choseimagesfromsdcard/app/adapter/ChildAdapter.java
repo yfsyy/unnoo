@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.wzhz.choseimagesfromsdcard.app.R;
+import com.wzhz.choseimagesfromsdcard.app.other.MyImageView;
 import com.wzhz.choseimagesfromsdcard.app.other.NativeImageLoader;
 
 
@@ -29,6 +30,8 @@ public class ChildAdapter extends BaseAdapter {
     protected LayoutInflater mInflater;
     private int totalSelected;//选中的总数
     private Handler handler;
+    private int imgHeight;//测量图片的高度
+    private int imgWidth;//测量图片的宽度
 
     public ChildAdapter(Context context, List<String> list, GridView mGridView, Handler handler) {
         this.list = list;
@@ -61,8 +64,17 @@ public class ChildAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.grid_child_item, null);
             viewHolder = new ViewHolder();
-            viewHolder.mImageView = (ImageView) convertView.findViewById(R.id.child_image);
+            viewHolder.mImageView = (MyImageView) convertView.findViewById(R.id.child_image);
             viewHolder.mCheckBox = (CheckBox) convertView.findViewById(R.id.child_checkbox);
+            //用来监听ImageView的宽和高
+            viewHolder.mImageView.setOnMeasureListener(new MyImageView.OnMeasureListener() {
+
+                @Override
+                public void onMeasureSize(int width, int height) {
+                    imgHeight = height;
+                    imgWidth = width;
+                }
+            });
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -103,7 +115,7 @@ public class ChildAdapter extends BaseAdapter {
         viewHolder.mCheckBox.setChecked(NativeImageLoader.mSelectMap.containsKey(path) ? NativeImageLoader.mSelectMap.get(path) : false);
 
         //利用NativeImageLoader类加载本地图片
-        Bitmap bitmap = NativeImageLoader.getInstance().loadNativeImage(path, viewHolder.mImageView.getWidth(), viewHolder.mImageView.getHeight(), new NativeImageLoader.NativeImageCallBack() {
+        Bitmap bitmap = NativeImageLoader.getInstance().loadNativeImage(path, imgWidth, imgHeight, new NativeImageLoader.NativeImageCallBack() {
 
             @Override
             public void onImageLoader(Bitmap bitmap, String path) {
@@ -139,7 +151,7 @@ public class ChildAdapter extends BaseAdapter {
 
 
     public class ViewHolder {
-        public ImageView mImageView;
+        public MyImageView mImageView;
         public CheckBox mCheckBox;
     }
 

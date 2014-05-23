@@ -15,12 +15,15 @@ import android.widget.TextView;
 
 import com.wzhz.choseimagesfromsdcard.app.R;
 import com.wzhz.choseimagesfromsdcard.app.other.ImageBean;
+import com.wzhz.choseimagesfromsdcard.app.other.MyImageView;
 import com.wzhz.choseimagesfromsdcard.app.other.NativeImageLoader;
 
 public class GroupAdapter extends BaseAdapter {
     private List<ImageBean> list;
     private GridView mGridView;
     protected LayoutInflater mInflater;
+    private int mImageViewWidth;//展示图片的ImageView的宽
+    private int mImageViewHeight;//展示图片的ImageView的高
 
     @Override
     public int getCount() {
@@ -53,9 +56,18 @@ public class GroupAdapter extends BaseAdapter {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.grid_group_item, null);
-            viewHolder.mImageView = (ImageView) convertView.findViewById(R.id.group_image);
+            viewHolder.mImageView = (MyImageView) convertView.findViewById(R.id.group_image);
             viewHolder.mTextViewTitle = (TextView) convertView.findViewById(R.id.group_title);
             viewHolder.mTextViewCounts = (TextView) convertView.findViewById(R.id.group_count);
+            viewHolder.mImageView.setOnMeasureListener(new MyImageView.OnMeasureListener()
+            {
+                @Override
+                public void onMeasureSize(int width, int height)
+                {
+                    mImageViewHeight = height;
+                    mImageViewWidth = width;
+                }
+            });
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -69,7 +81,7 @@ public class GroupAdapter extends BaseAdapter {
 
 
         //利用NativeImageLoader类加载本地图片
-        Bitmap bitmap = NativeImageLoader.getInstance().loadNativeImage(path, viewHolder.mImageView.getWidth(), viewHolder.mImageView.getHeight(), new NativeImageLoader.NativeImageCallBack() {
+        Bitmap bitmap = NativeImageLoader.getInstance().loadNativeImage(path, mImageViewWidth, mImageViewHeight, new NativeImageLoader.NativeImageCallBack() {
 
             @Override
             public void onImageLoader(Bitmap bitmap, String path) {
@@ -90,7 +102,7 @@ public class GroupAdapter extends BaseAdapter {
 
 
     public static class ViewHolder {
-        public ImageView mImageView;
+        public MyImageView mImageView;
         public TextView mTextViewTitle;
         public TextView mTextViewCounts;
     }

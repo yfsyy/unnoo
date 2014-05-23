@@ -77,7 +77,7 @@ public class MainActivity extends Activity {
 
             }
         });
-
+        ExitApplication.getInstance().addActivity(this);
     }
 
 
@@ -113,7 +113,6 @@ public class MainActivity extends Activity {
                     //System.out.println(path);
                     //获取该图片的父路径名
                     String parentName = new File(path).getParentFile().getName();
-                    //System.out.println("11111"+parentName);
 
                     //根据父路径名将图片放入到mGruopMap中
                     if (!mGruopMap.containsKey(parentName)) {
@@ -140,31 +139,22 @@ public class MainActivity extends Activity {
      * 组装分组界面GridView的数据源，因为我们扫描手机的时候将图片信息放在HashMap中
      * 所以需要遍历HashMap将数据组装成List
      *
-     * @param mGruopMap
+     * @param mGroupMap
      * @return
      */
-    private List<ImageBean> subGroupOfImage(HashMap<String, List<String>> mGruopMap) {
+    private List<ImageBean> subGroupOfImage(HashMap<String, List<String>> mGroupMap) {
         if (mGruopMap.size() == 0) {
             return null;
         }
-        List<ImageBean> list = new ArrayList<ImageBean>();
-
-        Iterator<Map.Entry<String, List<String>>> it = mGruopMap.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry<String, List<String>> entry = it.next();
-            ImageBean mImageBean = new ImageBean();
-            String key = entry.getKey();
-            List<String> value = entry.getValue();
-
+        ImageBean mImageBean=null;
+        for (String key : mGroupMap.keySet()) {
+            mImageBean = new ImageBean();
             mImageBean.setFolderName(key);
-            mImageBean.setImageCounts(value.size());
-            mImageBean.setTopImagePath(value.get(0));//获取该组的第一张图片
-
+            mImageBean.setImageCounts(mGroupMap.get(key).size());
+            mImageBean.setTopImagePath(mGroupMap.get(key).get(0));//获取该组的第一张图片
             list.add(mImageBean);
         }
-
         return list;
-
     }
 
 

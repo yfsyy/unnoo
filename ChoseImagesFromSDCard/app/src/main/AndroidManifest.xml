@@ -16,8 +16,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.wzhz.choseimagesfromsdcard.app.ShowImageActivity"></activity>
-        <activity android:name="com.wzhz.choseimagesfromsdcard.app.ShowSelectedImagesActivity"></activity>
+        <activity android:name="com.wzhz.choseimagesfromsdcard.app.ShowImageActivity" />
+        <activity
+            android:name="com.wzhz.choseimagesfromsdcard.app.ShowSelectedImagesActivity" />
+        <activity
+            android:name="com.wzhz.choseimagesfromsdcard.app.ShowPrimaryImages"
+            android:label="@string/title_activity_show_primary_images" >
+        </activity>
     </application>
 
 </manifest>

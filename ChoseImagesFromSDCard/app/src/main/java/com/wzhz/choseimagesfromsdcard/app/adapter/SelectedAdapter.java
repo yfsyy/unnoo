@@ -3,9 +3,9 @@ package com.wzhz.choseimagesfromsdcard.app.adapter;
 import java.util.List;
 
 import com.wzhz.choseimagesfromsdcard.app.R;
-import com.wzhz.choseimagesfromsdcard.app.ShowSelectedImagesActivity;
 import com.wzhz.choseimagesfromsdcard.app.other.NativeImageLoader;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +18,9 @@ public class SelectedAdapter extends BaseAdapter {
     private List<String> lt;// 选中图片的路径
     private LayoutInflater inflater;
     private GridView selectedGridView;
-    private ShowSelectedImagesActivity context;
 
-    public SelectedAdapter(ShowSelectedImagesActivity context, List<String> lt,
+    public SelectedAdapter(Context context, List<String> lt,
                            GridView selectedGridView) {
-        this.context = context;
         this.lt = lt;
         this.selectedGridView = selectedGridView;
         inflater = LayoutInflater.from(context);
@@ -49,6 +47,7 @@ public class SelectedAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View view, ViewGroup parent) {
         // TODO Auto-generated method stub
+
         String path = "";
         if (position < lt.size()) {
             path = lt.get(position);
@@ -63,9 +62,8 @@ public class SelectedAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
         holder.image.setTag(path);
-        System.out.println("current position:" + position);
-        if (position == context.getIntent()
-                .getStringArrayListExtra("selectedpath").size()) {
+        // System.out.println("current position:" + position);
+        if (position == lt.size()) {
 
             // 选择的图片小于9张时，在后面有个添加图片
             holder.image.setImageResource(R.drawable.icon_addpic_unfocused);

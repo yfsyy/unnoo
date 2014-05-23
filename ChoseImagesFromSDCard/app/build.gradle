@@ -22,4 +22,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:+'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile files('libs/nineoldandroids-2.4.0.jar')
+    compile files('libs/gesture-imageview.jar')
+    compile files('libs/gradle-wrapper.jar')
+    compile files('libs/photoview.jar')
+    compile files('libs/main.jar')
 }

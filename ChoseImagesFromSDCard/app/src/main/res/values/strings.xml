@@ -10,5 +10,6 @@
     <string name="selectfrombucket">从相册中选取</string>
     <string name="cancle">取消</string>
     <string name="sharedcontent">分享您的那点新鲜事儿...</string>
+    <string name="title_activity_show_primary_images">ShowPrimaryImages</string>
 
 </resources>

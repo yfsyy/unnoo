@@ -5,7 +5,7 @@
 
     <GridView
         android:id="@+id/main_grid"
-        android:layout_width="100dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:listSelector="@android:color/transparent"
         android:cacheColorHint="@android:color/transparent"
@@ -15,7 +15,7 @@
         android:verticalSpacing="20dip"
         android:columnWidth="90dip"
         android:scrollbars="none"
-        android:numColumns="1" >
+        android:numColumns="auto_fit" >
     </GridView>
 
 </RelativeLayout>
