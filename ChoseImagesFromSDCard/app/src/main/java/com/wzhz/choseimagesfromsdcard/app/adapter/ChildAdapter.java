@@ -87,17 +87,15 @@ public class ChildAdapter extends BaseAdapter {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 //如果是未选中的CheckBox,则添加动画
                 if (!NativeImageLoader.mSelectMap.containsKey(path) || !NativeImageLoader.mSelectMap.get(path)) {
-                    if (totalSelected < 9) {
+                    if (NativeImageLoader.mSelectMap.size() < 9) {
                         addAnimation(viewHolder.mCheckBox);
                     }
                 }
-                if (totalSelected < 9) {
+                if (NativeImageLoader.mSelectMap.size() < 9) {
                     if (isChecked) {
-                        totalSelected++;
                         NativeImageLoader.mSelectMap.put(path, isChecked);
                     } else {
-                        totalSelected--;
-                        NativeImageLoader.mSelectMap.remove(path);
+                        //NativeImageLoader.mSelectMap.remove(path);
                     }
                 } else {
                     if (isChecked) {
@@ -105,14 +103,13 @@ public class ChildAdapter extends BaseAdapter {
                         handler.sendEmptyMessage(-1);
                     } else {
                         viewHolder.mCheckBox.setChecked(isChecked);
-                        totalSelected--;
-                        NativeImageLoader.mSelectMap.remove(path);
+                        //NativeImageLoader.mSelectMap.remove(path);
                     }
                 }
             }
         });
 
-        viewHolder.mCheckBox.setChecked(NativeImageLoader.mSelectMap.containsKey(path) ? NativeImageLoader.mSelectMap.get(path) : false);
+        //viewHolder.mCheckBox.setChecked(NativeImageLoader.mSelectMap.containsKey(path) ? NativeImageLoader.mSelectMap.get(path) : false);
 
         //利用NativeImageLoader类加载本地图片
         Bitmap bitmap = NativeImageLoader.getInstance().loadNativeImage(path, imgWidth, imgHeight, new NativeImageLoader.NativeImageCallBack() {

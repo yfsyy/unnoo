@@ -8,6 +8,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
+            android:launchMode="singleTask"
             android:name="com.wzhz.choseimagesfromsdcard.app.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
@@ -20,8 +21,7 @@
         <activity
             android:name="com.wzhz.choseimagesfromsdcard.app.ShowSelectedImagesActivity" />
         <activity
-            android:name="com.wzhz.choseimagesfromsdcard.app.ShowPrimaryImages"
-            android:label="@string/title_activity_show_primary_images" >
+            android:name="com.wzhz.choseimagesfromsdcard.app.ShowPrimaryImages">
         </activity>
     </application>
 
