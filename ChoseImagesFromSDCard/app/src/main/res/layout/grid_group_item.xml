@@ -16,7 +16,7 @@
             android:paddingRight="20dip"
             android:paddingTop="18dip"
             android:paddingBottom="30dip"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:layout_width="fill_parent"
             android:layout_height="120dp" />
 
